@@ -9,9 +9,9 @@ def orbit():
     num_steps = 50
     x = numpy.zeros([num_steps + 1, 2])
     
-    for step in range(num_steps):
-        x[step + 1][0] = 384e6*numpy.cos((2 * numpy.pi) / num_steps * step)
-        x[step + 1][1] = 384e6*numpy.sin((2 * numpy.pi) / num_steps * step)
+    for step in range(num_steps + 1):
+        x[step][0] = 384e6*numpy.cos(((2 * numpy.pi) / num_steps) * step)
+        x[step][1] = 384e6*numpy.sin(((2 * numpy.pi) / num_steps) * step)
     
     return x
 
