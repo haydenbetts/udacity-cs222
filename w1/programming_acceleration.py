@@ -9,7 +9,7 @@
 # use in your answer.
 
 import numpy
-import matplotlib
+import matplotlib.pyplot as plt
 
 earth_mass = 5.97e24 # kg
 moon_mass = 7.35e22 # kg
