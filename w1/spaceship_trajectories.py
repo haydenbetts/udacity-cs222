@@ -12,9 +12,22 @@ h = 1.0 # s
 earth_mass = 5.97e24 # kg
 gravitational_constant = 6.67e-11 # N m2 / kg2
 
-def acceleration(spaceship_position):
-    ###Your code here.
+h = 1.0 # s
+earth_mass = 5.97e24 # kg
+gravitational_constant = 6.67e-11 # N m2 / kg2
 
+def acceleration(spaceship_position):
+    # get unit vector pointing from ship to earth
+    ship_to_earth_vec = spaceship_position * -1
+    ship_to_earth_length = numpy.linalg.norm(ship_to_earth_vec)
+    ship_to_earth_unit = (ship_to_earth_vec) / ship_to_earth_length
+
+    # Scale ship_to_moon_unit, ship_to_earth_unit by the acceleration due to gravity expression
+    # I omit ship mass bc it drops out of the equation, unecessary to find acceleration
+    acc_gravity_earth_ship = (gravitational_constant * (earth_mass / (ship_to_earth_length**2))) * ship_to_earth_unit
+    
+    return acc_gravity_earth_ship
+    
 def ship_trajectory():
     num_steps = 13000
     x = numpy.zeros([num_steps + 1, 2]) # m
@@ -26,8 +39,12 @@ def ship_trajectory():
     v[0, 1] = 4e3
 
 	###Your code here. This code should call the above 
-	###acceleration function.
-
+    for step in range(num_steps):
+        v[step + 1][0] = v[step][0] + acceleration(x[step])[0] * h
+        v[step + 1][1] = v[step][1] + acceleration(x[step])[1] * h
+        x[step + 1][0] = x[step][0] + v[step][0] * h
+        x[step + 1][1] = x[step][1] + v[step][1] * h
+	
     return x, v
 
 x, v = ship_trajectory()
